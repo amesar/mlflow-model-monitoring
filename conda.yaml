@@ -1,0 +1,10 @@
+name: mlflow-model-monitoring
+channels:
+  - conda-forge
+dependencies:
+  - python=3.7.6
+  - pip:
+    - flask
+    - requests
+    - mlflow>=1.18.0
+    - scikit-learn>=0.24.2
