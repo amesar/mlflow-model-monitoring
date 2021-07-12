@@ -3,6 +3,7 @@ import uuid
 import pandas as pd
 import numpy as np
 import yaml
+import click
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeRegressor
@@ -92,18 +93,17 @@ def register_model(run_id, artifact_model_name, registered_model_name):
         stage="Production",
         archive_existing_versions=True)
 
-from argparse import ArgumentParser
+@click.command()
+@click.option("--experiment_name", help="Experiment name", type=str, default="sklearn_monitor")
+@click.option("--data_path", help="Data path", type=str, default="data/wine-quality-white.csv")
+@click.option("--max-depth", help="Max depth", type=int, default=None)
+@click.option("--max-leaf-nodes", help="Max leaf nodes", type=int, default=None)
+def main(experiment_name, data_path, max_depth, max_leaf_nodes):
+    print("Options:")
+    for k,v in locals().items():
+        print(f"  {k}: {v}")
+    mlflow.set_experiment(experiment_name)
+    _,run_id =  train(data_path, max_depth, max_leaf_nodes)
 
 if __name__ == "__main__":
-    parser = ArgumentParser()
-    parser.add_argument("--experiment_name", dest="experiment_name", help="experiment_name", required=True)
-    parser.add_argument("--data_path", dest="data_path", help="data_path", default="../data/wine-quality-white.csv")
-    parser.add_argument("--max_depth", dest="max_depth", help="max_depth", default=None, type=int)
-    parser.add_argument("--max_leaf_nodes", dest="max_leaf_nodes", help="max_leaf_nodes", default=None, type=int)
-    args = parser.parse_args()
-    print("Arguments:")
-    for arg in vars(args):
-        print(f"  {arg}: {getattr(args, arg)}")
-    mlflow.set_experiment(args.experiment_name)
-    _,run_id =  train(args.data_path, args.max_depth, args.max_leaf_nodes)
-    #predict(run_id, args.data_path)
+    main()

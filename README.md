@@ -23,7 +23,7 @@ conda activate mlflow-model-monitoring
 ## Train and register two models
 
 ```
-python train.py --data_path data/wine-quality-white.csv
+python train.py 
 ```
 
 This will create two registered models: `sklearn-monitor` and `sklearn-monitor-custom`.
@@ -41,7 +41,7 @@ mlflow models serve --port 5002 --model-uri models:/sklearn-monitor/production
 
 Start proxy server.
 ```
-python proxy_server.py 5001 http://localhost:5002/invocations out
+python proxy_server.py --port 5001 --mlflow-model-server-uri http://localhost:5002/invocations --log_dir out
 ```
 
 
