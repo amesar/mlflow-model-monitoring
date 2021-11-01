@@ -1,6 +1,6 @@
 # MLflow model monitoring example
 
-A simple example demonstrating how to log prediction data for the MLflow model server.
+A simple example demonstrating how to log request and response (prediction) data for an MLflow model server.
 Once the data is logged, a separate process can monitor the logging location and do analytics to determine data drift 
 and then launch model retraining and redeployment.
 
@@ -70,6 +70,10 @@ curl -X POST \
 ```
 
 ## Logging directory
+
+Each request for scoring will generate a CSV file containing the input data and the prediction. 
+The following example shows data for three requests.
+
 ```
 ls -l out
 
