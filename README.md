@@ -4,13 +4,11 @@ A simple example demonstrating how to log prediction data for the MLflow model s
 Once the data is logged, a separate process can monitor the logging location and do analytics to determine data drift 
 and then launch model retraining and redeployment.
 
-
 Two ways to log:
 * With proxy server that logs the data. Only `split-orient` JSON input is currently supported.
 * With custom [PythonModel](https://www.mlflow.org/docs/latest/models.html#custom-python-models) that logs the data.
 
 The data is currently logged to local disk. Next TODO is to log it to cloud storage (S3).
-
 
 ## Setup
 
@@ -18,12 +16,10 @@ The data is currently logged to local disk. Next TODO is to log it to cloud stor
 conda env create --file conda.yaml
 conda activate mlflow-model-monitoring
 ```
-
-
 ## Train and register two models
 
 ```
-python train.py 
+python custom_model_train.py
 ```
 
 This will create two registered models: `sklearn-monitor` and `sklearn-monitor-custom`.
@@ -33,6 +29,8 @@ This will create two registered models: `sklearn-monitor` and `sklearn-monitor-c
 The proxy server forwards the request to the actual model server, and then logs the input and output data as a CSV file.
 
 <img src="images/proxy.png" height="220" >
+
+Source code: [proxy_server.py](proxy_server.py).
 
 Start model server.
 ```
@@ -44,10 +42,11 @@ Start proxy server.
 python proxy_server.py --port 5001 --mlflow-model-server-uri http://localhost:5002/invocations --log_dir out
 ```
 
-
-## Custom Model
+## Custom PythonModel 
 
 <img src="images/custom_model.png" height="220" >
+
+Source code: [custom_model_train.py](custom_model_train.py).
 
 Start model server.
 ```
