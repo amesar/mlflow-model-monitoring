@@ -95,7 +95,7 @@ def register_model(run_id, artifact_model_name, registered_model_name):
 
 @click.command()
 @click.option("--experiment_name", help="Experiment name", type=str, default="sklearn_monitor")
-@click.option("--data_path", help="Data path", type=str, default="data/wine-quality-white.csv")
+@click.option("--data-path", help="Data path", type=str, default="data/wine-quality-white.csv")
 @click.option("--max-depth", help="Max depth", type=int, default=None)
 @click.option("--max-leaf-nodes", help="Max leaf nodes", type=int, default=None)
 def main(experiment_name, data_path, max_depth, max_leaf_nodes):
