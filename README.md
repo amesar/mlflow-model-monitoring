@@ -66,7 +66,7 @@ curl -X POST \
         "data": [
           [ 7,   0.27, 0.36, 20.7, 0.045, 45, 170, 1.001,  3,    0.45,  8.8 ],
           [ 6.3, 0.3,  0.34,  1.6, 0.049, 14, 132, 0.994,  3.3,  0.49,  9.5 ] ] }' \
-  http://localhost:5002/invocations
+  http://localhost:5001/invocations
 ```
 
 ## Logging directory
