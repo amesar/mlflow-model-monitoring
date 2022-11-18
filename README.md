@@ -73,6 +73,10 @@ curl -X POST \
 
 Each request for scoring will generate a CSV file containing the input data and the prediction. 
 The following example shows data for three requests.
+The CSV file is writen to the local directory specified in MLFLOW_MONITORING_DIR.
+Note that writing to anything except the local filesystem (e.g. S3) is not viable.
+Specifying configuration and credentials is not practical with the custom model.
+Also, you cannot write to Spark or Delta tables since the Spark context is not available inside the custom model.
 
 ```
 ls -l out
